@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/api/v1/income/scenarios")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000", "https://safetynetnavigator.vercel.app"})
 class ScenarioController {
 
     private final ScenarioService scenarioService;

@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/api/v1/income/journeys")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000", "https://safetynetnavigator.vercel.app"})
 class JourneyController {
 
     private static final Logger log = LoggerFactory.getLogger(JourneyController.class);
