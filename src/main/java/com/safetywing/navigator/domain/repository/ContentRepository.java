@@ -24,7 +24,7 @@ public class ContentRepository {
     private static BenefitContent createContractCancelledContent() {
         return new BenefitContent(
                 "CONTRACT_CANCELLED",
-                "SafetyWing's Nomad Citizen product includes income protection for cancelled contracts under its variable-income coverage.",
+                "Nomad Citizen's income protection benefit covers severe loss of variable income when a client terminates a contract. The policy specifies conditions around income reduction thresholds, coverage duration, and documentation requirements.",
                 createPolicyConditions(),
                 createBenefitStructure(),
                 createItemsToVerify(),

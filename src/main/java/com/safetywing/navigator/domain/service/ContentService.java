@@ -49,6 +49,7 @@ public class ContentService {
 
     /**
      * Retrieves all source documents referenced in the benefit content.
+     * Always includes the Product Page (SRC-001) in addition to policy-referenced sources.
      *
      * @param content the benefit content
      * @return list of source documents
@@ -57,6 +58,9 @@ public class ContentService {
         Set<String> sourceIds = content.policyConditions().stream()
                 .map(condition -> condition.sourceId())
                 .collect(Collectors.toSet());
+
+        // Always include the Product Information page as a general source
+        sourceIds.add("SRC-001");
 
         return sourceRepository.findAllById(List.copyOf(sourceIds));
     }
