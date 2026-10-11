@@ -17,14 +17,14 @@ public class CorsConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        
+
         // Split and trim the origins
         String[] origins = allowedOrigins.split(",");
         for (int i = 0; i < origins.length; i++) {
             origins[i] = origins[i].trim();
         }
         configuration.setAllowedOrigins(Arrays.asList(origins));
-        
+
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setExposedHeaders(Arrays.asList("*"));
