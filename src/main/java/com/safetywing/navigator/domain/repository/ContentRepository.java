@@ -58,12 +58,7 @@ public class ContentRepository {
                         "VC_EVIDENCE",
                         "Evidence and Documentation",
                         "The policy lists documents that may be needed, including tax returns for the year of lost income (once available), documentation of income loss, and documentation of previous income.",
-                        "SRC-004"),
-                new PolicyCondition(
-                        "VC_MEMBERSHIP_COMMITMENT",
-                        "Membership Commitment",
-                        "Nomad Citizen requires a minimum 12-month commitment. Combined with the 24-month coverage requirement, members must maintain membership for 24 months before being eligible for variable-income protection.",
-                        "SRC-001"));
+                        "SRC-004"));
     }
 
     private static BenefitContent.BenefitStructure createBenefitStructure() {
@@ -75,11 +70,11 @@ public class ContentRepository {
 
     private static List<String> createItemsToVerify() {
         return List.of(
-                "Whether your specific income situation qualifies as 'variable income' under the policy",
+                "How the policy defines and applies its variable-income conditions to your situation",
                 "Whether your income reduction meets the 90% threshold using the policy's calculation method",
                 "Whether your coverage history meets the 24-month requirement",
                 "What documentation is required for your specific situation",
                 "Whether any exclusions or limitations apply to your circumstances",
-                "How to file a claim and what the review process involves");
+                "What additional information SafetyWing may require from you");
     }
 }
