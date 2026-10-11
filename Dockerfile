@@ -1,9 +1,18 @@
 # Build stage
 FROM maven:3.9-eclipse-temurin-21 AS build
 WORKDIR /app
+
+# Copy pom.xml first for better layer caching
 COPY pom.xml .
+
+# Download dependencies (cached layer)
+RUN mvn dependency:go-offline -B
+
+# Copy source code
 COPY src ./src
-RUN mvn clean install -DskipTests
+
+# Build the application
+RUN mvn clean package -DskipTests -B
 
 # Run stage
 FROM eclipse-temurin:21-jre
