@@ -14,8 +14,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class ContentRepository {
 
-    private static final Map<String, BenefitContent> CONTENT =
-            Map.of("CONTRACT_CANCELLED", createContractCancelledContent());
+    private static final Map<String, BenefitContent> CONTENT = Map.of(
+            "CONTRACT_CANCELLED", createContractCancelledContent(),
+            "INCOME_DECREASED_SIGNIFICANTLY", createIncomeDecreasedContent());
 
     public Optional<BenefitContent> findByScenarioId(String scenarioId) {
         return Optional.ofNullable(CONTENT.get(scenarioId));
@@ -74,6 +75,56 @@ public class ContentRepository {
                 "Whether your income reduction meets the 90% threshold using the policy's calculation method",
                 "Whether your coverage history meets the 24-month requirement",
                 "What documentation is required for your specific situation",
+                "Whether any exclusions or limitations apply to your circumstances",
+                "What additional information SafetyWing may require from you");
+    }
+
+    private static BenefitContent createIncomeDecreasedContent() {
+        return new BenefitContent(
+                "INCOME_DECREASED_SIGNIFICANTLY",
+                "Nomad Citizen's income protection benefit covers severe loss of variable income when income decreases by 90% or more. This applies to various scenarios including client loss, project cancellations, or severe market changes affecting variable income.",
+                createIncomeDecreasedPolicyConditions(),
+                createBenefitStructure(),
+                createIncomeDecreasedItemsToVerify(),
+                "This information explains publicly available policy conditions. It does not determine your personal eligibility, approve a claim, or guarantee a payout. Any stated maximum is subject to meeting all policy conditions and requirements. Only SafetyWing can make authoritative eligibility and claim decisions.",
+                BenefitContent.DisclaimerImportance.CRITICAL);
+    }
+
+    private static List<PolicyCondition> createIncomeDecreasedPolicyConditions() {
+        return List.of(
+                new PolicyCondition(
+                        "VC_INCOME_REDUCTION",
+                        "Income Reduction Requirement",
+                        "Income must have decreased by 90% or more, averaged over 90 consecutive days, due to termination or inability to agree upon a new contract.",
+                        "SRC-004"),
+                new PolicyCondition(
+                        "VC_INCOME_HISTORY",
+                        "Income History Requirement",
+                        "The average income for the last year must be lower than the year before that.",
+                        "SRC-004"),
+                new PolicyCondition(
+                        "VC_JOB_SEEKING",
+                        "Job-Seeking Requirement",
+                        "You must be actively seeking jobs or income matching your skills and education.",
+                        "SRC-004"),
+                new PolicyCondition(
+                        "VC_PRIOR_COVERAGE",
+                        "Prior Coverage Requirement",
+                        "You must have been covered by the plan for at least 24 consecutive months before losing income.",
+                        "SRC-004"),
+                new PolicyCondition(
+                        "VC_EVIDENCE",
+                        "Evidence and Documentation",
+                        "The policy lists documents that may be needed, including tax returns for the year of lost income (once available), documentation of income loss, and documentation of previous income.",
+                        "SRC-004"));
+    }
+
+    private static List<String> createIncomeDecreasedItemsToVerify() {
+        return List.of(
+                "How the policy calculates the 90% income reduction threshold for your situation",
+                "Whether your specific cause of income loss (client loss, project cancellation, market change) qualifies under policy terms",
+                "Whether your coverage history meets the 24-month requirement",
+                "What documentation is required for your specific income-loss situation",
                 "Whether any exclusions or limitations apply to your circumstances",
                 "What additional information SafetyWing may require from you");
     }
