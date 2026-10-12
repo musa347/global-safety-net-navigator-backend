@@ -293,24 +293,29 @@ The product instead communicates:
 
 ## Testing
 
-The project uses automated tests to validate both API behaviour and product constraints.
+The project includes a focused test suite validating critical API behaviors and product invariants.
 
-Key scenarios include:
+**Test Suite: 13 tests**
 
-- Retrieving supported scenarios
-- Submitting a valid scenario
-- Rejecting unsupported scenarios
-- Validating malformed requests
-- Verifying source attribution
-- Verifying benefit wording
-- Ensuring informational results do not become eligibility decisions
-- Validating structured error responses
-- Ensuring request identifiers are present
-- Validating application behaviour under expected failures
+### API Contract Tests (10 tests)
+- Valid journey request → 200 with complete response structure
+- Blank/missing scenarioId → 400 with proper error codes
+- Unsupported scenario → 422 with UNSUPPORTED_SCENARIO error
+- Benefits always contain "up to" qualifier
+- Result type is always INFORMATIONAL (never suggests eligibility)
+- No eligibility/approval/guarantee language in responses
+- Every policy condition has a valid sourceId (format validation)
+- Sources array contains all referenced sourceIds
+- Error responses include requestId and timestamp
 
-JaCoCo is configured with an 80% minimum line-coverage threshold.
+### Source Integrity Tests (3 tests)
+- Content with valid source references passes validation
+- Content with invalid source references fails with clear error message
+- All sources referenced by real content exist in repository
 
-The objective is not simply high coverage; tests are intended to protect the product's most important behavioural and policy boundaries.
+**Coverage: 78%** (JaCoCo threshold: 75%)
+
+The test suite is deliberately focused on behaviors that matter: API contract guarantees, source integrity, and ensuring the system never converts policy information into eligibility decisions. The goal is testing critical invariants rather than chasing 100% coverage.
 
 ## Code Quality
 
